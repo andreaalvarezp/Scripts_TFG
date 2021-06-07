@@ -8,11 +8,11 @@
 
 Este Github recoge los scripts bioinformáticos utilizados para la realización del **Trabajo de Fin de Grado de Biotecnología** de la alumna Andrea Álvarez Pérez. Cada uno de ellos está destinado a una tarea concreta y todos los scripts, tanto en R como en bash, están comentados con la función y el objetivo de cada una de las órdenes y módulos ejecutados.
 
-De igual manera, en este archivo se explica de manera concisa el uso de cada uno de los script y se clasifican según la sección del Trabajo de Fin de Grado a la que pertenecen. 
+De igual manera, en este archivo se explica de manera concisa el uso de cada uno de los script y se clasifican según la sección del Trabajo de Fin de Grado a la que pertenecen. El uso y los parámetros de cada módulo se especifican dentro de cada uno de los script.
 
 **Importante**: si se quiere hacer uso de los scripts es obligatorio modificar los *paths* establecidos en el primer bloque de cada script y redefinir las variables de manera personalizada para cada usuario.
 
-## 1. Búsqueda y determinación de micovirus en *Plectosphaerella*
+## 1. BÚSQUEDA Y DETERMINACIÓN DE MICOVIRUS EN *PLECTOSPHAERELLA*
 
 ### 1.1. *Plec.sh*
 
@@ -35,8 +35,6 @@ module load Trinity/2.11.0-foss-2019a-Python-3.7.2
 module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
 ```
 
-El uso y los parámetros de cada módulo se especifican dentro del script.
-
 ### 1.2. ct.sh
 
 Este módulo es idéntico al anterior, pero posee las variables redefinidas para utilizarlas con datos del hongo *Colletotrichum tofieldiae*. Sirve para la búsqueda e identificación de micovirus en datos de RNAseq. Uso:
@@ -50,3 +48,61 @@ siendo ``$1`` las condiciones de las muestras de *Colletotrichum tofieldiae*. Po
 - plusP
 - minusP
 
+Los módulos utilizados fueron los mismos que con *Plectosphaerella*.
+
+### 1.3. gilbert.sh
+
+Este módulo aplica el procesa bioinformático llevado a cabo por Gilbert, K., *et al*, 2019. Se aplica para comprobar la eficiencia del procesado llevado a cabo anteriormente y comparar los resultados obtenidos. Uso:
+
+```bash
+$ sbatch gilbert.sh $1
+```
+
+siendo ``$1`` las condiciones de las muestras de *Colletotrichum tofieldiae*. Posibles argumentos:
+- *invitro*
+- plusP
+- minusP
+
+Este script aplica diversos módulos cargados desde el cluster de supercomputación del CBGP:
+
+```bash
+module load BBMap/38.87-GCC-8.2.0-2.31.1
+module load Bowtie2/2.3.5.1-GCC-8.2.0-2.31.1
+module load Trinity/2.11.0-foss-2019a-Python-3.7.2
+module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
+module load Miniconda3/4.7.10
+```
+
+Además requiere de la creación y activación de un entorno virtual para ejecutar **cutadapt**:
+
+```bash
+conda create -n AndreaConda python=3.7 anaconda
+source activate AndreaConda
+conda install -c bioconda cutadapt
+```
+
+## 2. CANDIDATOS DE SECUENCIAS DE *PLECTOSPHAERELLA* COMO MIMÉTICAS DE DOS FAMILIAS DE PÉPTIDOS FITOREGULADORES DE *ARABIDOPSIS*
+
+### 2.1. *scoop.sh*
+
+Este módulo se utilizó para la búsqueda de motivos SCOOP y SSP en el proteoma de *Plectosphaerella*. Uso:
+
+```bash
+$ sbatch scoop.sh $1
+```
+
+siendo ``$1`` la secuencia que se quiere utilizar como *query* para buscar en los proteomas del hongo. Posibles argumentos:
+- scoop10
+- scoop12
+- fusarium
+- verticilium
+- magnaporthe
+- proscoop
+
+En cada uno de los archivos con el nombre del argumento deben estar alojadas la/s secuencia/s correspondientes a cada categoría. El script aplica un BLAST-P para su búsqueda y luego obtiene a partir de los resultados el archivo FASTA correspondiente que será utilizado como entrada en MEME. El módulos utilizado es:
+
+```bash
+module load BLAST+/2.9.0-gompi-2019a
+```
+
+### 3. BÚSQUEDA Y DETERMINACIÓN DE FAMILIAS DE CAZymas EN *PLECTOSPHAERELLA*
