@@ -22,7 +22,6 @@ dir=$PWD
 
 ## Cargo módulos
 
-module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
 module load BLAST+/2.9.0-gompi-2019a
 
 ### PEPTIDOS SCOOP

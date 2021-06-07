@@ -28,8 +28,6 @@ dir=$PWD
 module load BBMap/38.87-GCC-8.2.0-2.31.1
 module load Trinity/2.11.0-foss-2019a-Python-3.7.2
 module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
-module load BWA/0.7.17-GCC-8.2.0-2.31.1
-module load SAMtools/1.9-GCC-8.2.0-2.31.1
 
 echo "Condición de muestras de Colletotrichum tofieldiae: $1"
 echo "Posibles argumentos: invitro, plusP, minusP"
