@@ -35,7 +35,7 @@ module load Trinity/2.11.0-foss-2019a-Python-3.7.2
 module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
 ```
 
-### 1.2. ct.sh
+### 1.2. *ct.sh*
 
 Este módulo es idéntico al anterior, pero posee las variables redefinidas para utilizarlas con datos del hongo *Colletotrichum tofieldiae*. Sirve para la búsqueda e identificación de micovirus en datos de RNAseq. Uso:
 
@@ -50,7 +50,7 @@ siendo ``$1`` las condiciones de las muestras de *Colletotrichum tofieldiae*. Po
 
 Los módulos utilizados fueron los mismos que con *Plectosphaerella*.
 
-### 1.3. gilbert.sh
+### 1.3. *gilbert.sh*
 
 Este módulo aplica el procesa bioinformático llevado a cabo por Gilbert, K., *et al*, 2019. Se aplica para comprobar la eficiencia del procesado llevado a cabo anteriormente y comparar los resultados obtenidos. Uso:
 
@@ -106,3 +106,50 @@ module load BLAST+/2.9.0-gompi-2019a
 ```
 
 ### 3. BÚSQUEDA Y DETERMINACIÓN DE FAMILIAS DE CAZymas EN *PLECTOSPHAERELLA*
+
+## 3.1. *CAZymas.sh*
+
+Este módulo ejecuta múltiples tareas:
+1. Eejecuta dbCAN2 para la determinación de genes ue codifican para CAZymas en los proteomas y genomas de *Plectosphaerella*.
+3. Divide los resultados según la familia o grupo al que pertenecen (AA, CE, CBM, GH, GT, PL).
+4. Prepara el archivo FASTA correspondiente para su posterior ejecución en SECRETOOL.
+5. Alinea las secuencias de las tres cepas del hongo que pertenecen a una familia con ClustalOmega.
+6. Genera un árbol filogenético con IQTREE.
+
+```bash
+$ sbatch CAZymas.sh $1 $2
+```
+
+siendo ``$1`` la cepa de *Plectosphaerella* a analizar. Posibles argumentos:
+- PcBMM
+- Pc2127
+- P0831
+
+siendo ``$2`` la familia de CAZymas que queremos posteriormente filtrar. Posibles argumentos:
+- AA
+- CE
+- CBM (no se considera familia, agrupa genes que contienen dominios de unión a carbohidratos)
+- GH
+- GT
+- PL
+
+Para la ejecución de este script es necesario crear un entorno virtual para poder utilizar dbCAN2 de manera remota:
+
+```bash
+module load Miniconda3/4.7.10
+conda create -n run_dbcan python=3.8 diamond hmmer prodigal -c conda-forge -c bioconda
+source activate run_dbcan
+pip install run-dbcan==2.0.11
+conda install -c bioconda run-dbcan==2.0.11
+```
+
+Además de la ejecución de diversos módulos:
+
+```bash
+module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
+module load BLAST+/2.9.0-gompi-2019a
+module load Clustal-Omega/1.2.4-GCC-8.2.0-2.31.1
+module load IQ-TREE/1.6.12-foss-2019a
+```
+
+Este script da como resultado seis archivos, uno por cada grupo de CAZymas, con su correpondiente FASTA, alineamiento y archivo *.tree* con el árbol que será posteriomente representado con iTOL.
