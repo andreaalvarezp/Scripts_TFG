@@ -107,7 +107,20 @@ module load BLAST+/2.9.0-gompi-2019a
 
 ## 3.2. *SSP_heatmaps.R*
 
+Módulo utilizado para la obtención de mapas de calor de expresión de genes de *Plectosphaerella* interesantes en la identificación de miméticos de péptidos SSP. Es el único de los scripts que se ha programado con R, haciendo uso de diversas librerías:
 
+```R
+library(gplots)
+library(dplyr)
+library(ComplexHeatmap)
+library(RColorBrewer)
+```
+
+Cada una de estas librerías se utilizó con un uso concreto:
+- ``gplots`` se utilizó para la representación de diagramas y dendogramas. 
+- ``dplyr`` sirvió para el cálculo de las matrices de distancias y la agrupación de los datos en clústeres.
+- ``ComplexHeatMap`` permitió la representación de los mapas de calor. Se hizo uso de múltiples de sus opciones y parámetros, comentados en el código.
+- ``RColorBrewer`` permitió crear un código de color para cada cluster.
 
 ### 3. BÚSQUEDA Y DETERMINACIÓN DE FAMILIAS DE CAZymas EN *PLECTOSPHAERELLA*
 
