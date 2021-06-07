@@ -105,6 +105,10 @@ En cada uno de los archivos con el nombre del argumento deben estar alojadas la/
 module load BLAST+/2.9.0-gompi-2019a
 ```
 
+## 3.2. *SSP_heatmaps.R**
+
+
+
 ### 3. BÚSQUEDA Y DETERMINACIÓN DE FAMILIAS DE CAZymas EN *PLECTOSPHAERELLA*
 
 ## 3.1. *CAZymas.sh*
