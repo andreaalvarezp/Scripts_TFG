@@ -1,13 +1,13 @@
 ## HEATMAP IN R
 
-setwd("~/4º BIOTECNOLOGIA/SEGUNDO CUATRI/PRACTICAS/SSP final")
+setwd("~/4Âº BIOTECNOLOGIA/SEGUNDO CUATRI/PRACTICAS/SSP final")
 library(gplots)
 
 # Base function: heatmap()
-## scale () es una función que centra y escala las columnas de un 
-## matriz numérica. Transponemos la matriz con t () para luego centrar 
-## y escale los datos de cada proteína (es decir, las filas) con scale (). 
+## scale () es una funciÃ³n que centra y escala las columnas de un matriz numÃ©rica. Transponemos la matriz con t () para luego centrar y escale los datos de cada proteÃ­na (es decir, las filas) con scale (). 
 ## Finalmente, transponemos los datos a la forma original.
+
+## 1. CARGAMOS LOS DATOS Y LOS ESCALAMOS POR FILAS 
 
 ## datos PcBMM
 FPKM_PcBMM <- read.csv("FPKM_PcBMM2.txt", header=FALSE, sep = "\t")
@@ -17,7 +17,7 @@ FPKM_PcBMM
 # scale escala por columnas, yo quiero filas
 data_PcBMM <- data.matrix(FPKM_PcBMM)
 data_scaled_t_PcBMM <- scale(t(data_PcBMM)) # traspuesta y escalar por columans
-data_scaled_PcBMM <- t(data_scaled_t_PcBMM) # deshago la trasposición
+data_scaled_PcBMM <- t(data_scaled_t_PcBMM) # deshago la trasposiciÃ³n
 
 ## DATOS Pc2127
 FPKM_Pc2127 <- read.csv("FPKM_Pc2127.txt", header=FALSE, sep="\t")
@@ -39,13 +39,13 @@ data_P0831 <- data.matrix(FPKM_P0831)
 data_scaled_t_P0831 <- scale(t(data_P0831))
 data_scaled_P0831 <- t(data_scaled_t_P0831)
 
-# Color palette
+# DEFINIMOS UNA PALETA DE COLOR PARA LOS HEATMAPS
 
 my_palette <- colorRampPalette(c("blue",
                                  "white",
                                  "red"))
 
-## DENDOGRAMAS CON TIPOS DE METODOS DE CLUSTERING JERARQUICO
+## 2. DENDOGRAMAS CON TIPOS DE METODOS DE CLUSTERING JERARQUICO
 
 library(dplyr)
 matriz_distancias <- dist(x = data_scaled_PcBMM[, c("invitro", "Col0-10h",	"Col0-16h",	"Col0-24h",	"cyp-10h",	"cyp-16h")], method = "euclidean")
@@ -55,22 +55,22 @@ hc_euclidea_single   <- hclust(d = matriz_distancias, method = "single")
 hc_euclidea_average  <- hclust(d = matriz_distancias, method = "average")
 hc_euclidea_ward  <- hclust(d = matriz_distancias, method = "ward.D")
 
+## RepresentaciÃ³n de cada dendograma con cada mÃ©todo de agrupamiento y posterior elecciÃ³n manual
+
 par(mfrow = c(2,2))
 plot(x = hc_euclidea_completo, cex = 0.6, xlab = "", ylab = "", sub = "",
-     main = "Distancia euclídea, Linkage complete")
+     main = "Distancia euclÃ­dea, Linkage complete")
 plot(x = hc_euclidea_single, cex = 0.6, xlab = "", ylab = "", sub = "",
-     main = "Distancia euclídea, Linkage single")
+     main = "Distancia euclÃ­dea, Linkage single")
 plot(x = hc_euclidea_average, cex = 0.6, xlab = "", ylab = "", sub = "",
-     main = "Distancia euclídea, Linkage average")
+     main = "Distancia euclÃ­dea, Linkage average")
 plot(x = hc_euclidea_ward, cex = 0.6, xlab = "", ylab = "", sub = "",
-     main = "Distancia euclídea, Linkage ward")
+     main = "Distancia euclÃ­dea, Linkage ward")
 
-# Todos los dendogramas me sacan 4 clusteres claramente, y el que
-# me reparte los genes de manera más homogénea es ward.D, por lo que 
-# es el que elijo, aunque me valdría cualquiera.
+# Todos los dendogramas me sacan 4 clusteres claramente, y el que me reparte los genes de manera mÃ¡s homogÃ©nea y me reduce la varianza interna de cada clÃºster es ward.D.
+# por lo que es el que elijo, aunque me valdrÃ­a cualquiera.
 
-
-## DIAGRAMA DE CODO PARA NUMERO DE CLUSTERS
+## 3. DIAGRAMA DE CODO PARA FIJAR EL NUMERO DE CLUSTERS POR MÃ‰TODO DE K-MEDIAS
 
 diag_codoplot <- function(data, nc, seed=1234){
   wss <- (nrow(data)-1)*sum(apply(data,2,var))
@@ -82,14 +82,11 @@ diag_codoplot <- function(data, nc, seed=1234){
 
 diag_codoplot(data_scaled_PcBMM, nc=10) 
 
-# Según el diagrama de codo, donde se ha estudiado la suma 
-# de cuadrados dentro de cada grupo (within groups sum of squares)
-# se establece que el número de clusteres óptimo es 4.
+# SegÃºn el diagrama de codo, donde se ha estudiado la suma de cuadrados dentro de cada grupo (within groups sum of squares) se establece que el nÃºmero de clusteres Ã³ptimo es 4.
 
-# El siguiente paso es establecer el método de clustering
+## 3. HEATMAPS
 
-
-## Sacamos que el mejor método de clustering es WARD.D
+# InstalaciÃ³n del paquete ComplexHeatMap
 
 # if (!requireNamespace("BiocManager", quietly = TRUE))
   # install.packages("BiocManager")
@@ -97,27 +94,28 @@ diag_codoplot(data_scaled_PcBMM, nc=10)
 
 library(ComplexHeatmap)
 library(RColorBrewer)
+#Defino la paleta de colores
 my_group <- as.numeric(as.factor(substr(rownames(data_scaled_PcBMM), 1 , 1)))
 colSide <- brewer.pal(9, "Set1")[my_group]
 colMain <- colorRampPalette(brewer.pal(8, "Blues"))(25)
+
 Heatmap(data_scaled_PcBMM, 
-        name = "PcBMM", #title of legend
-        column_title = "PcBMM Gene expression", row_title = "Gene name",
-        row_names_gp = gpar(fontsize = 7),
-        clustering_method_row = "ward.D",
-        cluster_rows = TRUE,
-        column_order = c("invitro", "Col0-10h", "Col0-16h", "Col0-24h", "cyp-10h", "cyp-16h"),
-        right_annotation = rowAnnotation(foo = anno_block(gp = gpar(fill = 3:6),
+        name = "PcBMM", #tÃ­tulo del grÃ¡fico
+        row_names_gp = gpar(fontsize = 7), #tamaÃ±o del texto de las filas
+        clustering_method_row = "ward.D", #metodo de clustering
+        cluster_rows = TRUE, #clustering por filas
+        column_order = c("invitro", "Col0-10h", "Col0-16h", "Col0-24h", "cyp-10h", "cyp-16h"), #fijo el orden de las columnas 
+        right_annotation = rowAnnotation(foo = anno_block(gp = gpar(fill = 3:6), #funcion de anotacion de filas: numero, nombre y color de cada cluster
                 labels = c("1", "2", "3", "4"), 
                 labels_gp = gpar(col = "white", fontsize = 10))),
-        row_km = 4
+        row_km = 4,
+        width = unit(6, "cm"), height = unit(8, "cm"), #proporciones del mapa de calor
+        column_names_side = "top" #nombres de las columnas en la parte superior
         )
 
-# ?Heatmap
-
-Heatmap(data_scaled_Pc2127,  #title of legend
+Heatmap(data_scaled_Pc2127,  
         column_title = "Pc2127",
-        row_names_gp = gpar(fontsize = 7),# Text size for row names
+        row_names_gp = gpar(fontsize = 7),
         clustering_method_row = "ward.D",
         cluster_rows = TRUE,
         column_order = c("invitro", "Col0-10h", "Col0-16h", "Col0-24h", "cyp-10h", "cyp-16h"),
@@ -131,9 +129,8 @@ Heatmap(data_scaled_Pc2127,  #title of legend
 )
 
 Heatmap(data_scaled_P0831, 
-        name = "P0831", #title of legend
-        column_title = "P0831 Gene expression", row_title = "Gene name",
-        row_names_gp = gpar(fontsize = 7), # Text size for row names
+        name = "P0831", 
+        row_names_gp = gpar(fontsize = 7),
         clustering_method_row = "ward.D",
         cluster_rows = TRUE,
         column_order = c("invitro", "Col0-10h", "Col0-16h", "Col0-24h", "cyp-10h", "cyp-16h"),
@@ -143,26 +140,21 @@ Heatmap(data_scaled_P0831,
         row_km = 4
 )
 
-## HEATMAP COMUN
+## 4. HEATMAP COMUN
 
-setwd("~/4º BIOTECNOLOGIA/SEGUNDO CUATRI/TFG")
+setwd("~/4Âº BIOTECNOLOGIA/SEGUNDO CUATRI/TFG")
 comun <- read.csv("rel.txt", header = FALSE, sep = "\t")
-comun
 colnames(comun) <- c("PcBMM-Col0-10h",	"PcBMM-Col0-16h", "PcBMM-Col0-24h", "PcBMM-cyp-10h", "PcBMM-cyp-16h", "Pc2127-Col0-10h", "Pc2127-Col0-16h", "Pc2127-Col0-24h", "Pc2127-cyp-10h", "Pc2127-cyp-16h", "P0831-Col0-10h", "P0831-Col0-16h", "P0831-Col0-24h", "P0831-cyp-10h", "P0831-cyp-16h")
 rownames(comun) <- c("PcBMM_AIM000156", "PcBMM_AIM003066", "PcBMM_AIM001916", "PcBMM_AIM004866", "PcBMM_AIM002092", "PcBMM_AIM004328", "PcBMM_AIM009621", "PcBMM_AIM011005", "PcBMM_AIM006534", "PcBMM_AIM003697", "PcBMM_AIM008393", "PcBMM_AIM006317")
-comun
-lista_genes <- c("PcBMM_AIM000156, Pc2127_AIM010795, P0831_AIM010024", "PcBMM_AIM003066, Pc2127_AIM002806, P0831_AIM006318", "PcBMM_AIM001916, Pc2127_AIM005985, P0831_AIM008473", "PcBMM_AIM004866, Pc2127_AIM000735, P0831_AIM006276", "PcBMM_AIM002092, Pc2127_AIM009771, P0831_AIM007779", "PcBMM_AIM004328, Pc2127_AIM004951, P0831_AIM006134", "PcBMM_AIM009621, Pc2127_AIM006980, P0831_AIM007721", "PcBMM_AIM011005, Pc2127_AIM000922, P0831_AIM001611", "PcBMM_AIM006534, Pc2127_AIM003574, P0831_AIM004258", "PcBMM_AIM003697, Pc2127_AIM006549, P0831_AIM005061", "PcBMM_AIM008393, Pc2127_AIM005111, P0831_AIM005463", "PcBMM_AIM006317, Pc2127_AIM006209, P0831_AIM001836")
 
 comun_data <- data.matrix(comun)
+
 # escalado por filas de manera independiente
 data_scaled_comun_t <- scale(t(comun_data)) # traspuesta y escalar por columans
 data_scaled_comun <- t(data_scaled_comun_t)
 data_scaled_comun
-# escalado todas las filas de la misma manera
-data_scaled_total_t <- scale(t(comun_data), scale = c(8, 8, 8, 8,8, 8,8, 8,8, 8,8, 8)) # traspuesta y escalar por columans
-data_scaled_total <- t(data_scaled_total_t)
-data_scaled_total
 
+#comprobaciÃ³n del mejor mÃ©todo de agrupamiento con los dendogramas
 matriz_distancias2 <- dist(x = data_scaled_comun[, c(c("PcBMM-Col0-10h",	"PcBMM-Col0-16h", "PcBMM-Col0-24h", "PcBMM-cyp-10h", "PcBMM-cyp-16h", "Pc2127-Col0-10h", "Pc2127-Col0-16h", "Pc2127-Col0-24h", "Pc2127-cyp-10h", "Pc2127-cyp-16h", "P0831-Col0-10h", "P0831-Col0-16h", "P0831-Col0-24h", "P0831-cyp-10h", "P0831-cyp-16h"))], method = "euclidean")
 set.seed(567)
 hc_euclidea_completo2 <- hclust(d = matriz_distancias2, method = "complete")
@@ -172,18 +164,16 @@ hc_euclidea_ward2 <- hclust(d = matriz_distancias2, method = "ward.D")
 
 par(mfrow = c(2,2))
 plot(x = hc_euclidea_completo2, cex = 0.6, xlab = "", ylab = "", sub = "",
-     main = "Distancia euclídea, Linkage complete")
+     main = "Distancia euclÃ­dea, Linkage complete")
 plot(x = hc_euclidea_single2, cex = 0.6, xlab = "", ylab = "", sub = "",
-     main = "Distancia euclídea, Linkage single")
+     main = "Distancia euclÃ­dea, Linkage single")
 plot(x = hc_euclidea_average2, cex = 0.6, xlab = "", ylab = "", sub = "",
-     main = "Distancia euclídea, Linkage average")
+     main = "Distancia euclÃ­dea, Linkage average")
 plot(x = hc_euclidea_ward2, cex = 0.6, xlab = "", ylab = "", sub = "",
-     main = "Distancia euclídea, Linkage ward")
-# complete o ward??
+     main = "Distancia euclÃ­dea, Linkage ward")
 
-## VALIDO NUMERO DE CLUSTERS
+## ESTABLECER NÃšMERO DE CLUSTERES
 diag_codoplot(data_scaled_comun, nc=10) 
-
 
 Heatmap(data_scaled_comun, #title of legend
         row_names_gp = gpar(fontsize = 7),
