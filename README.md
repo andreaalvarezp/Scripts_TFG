@@ -70,15 +70,17 @@ module load BBMap/38.87-GCC-8.2.0-2.31.1
 module load Bowtie2/2.3.5.1-GCC-8.2.0-2.31.1
 module load Trinity/2.11.0-foss-2019a-Python-3.7.2
 module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
+module load HMMER/3.2.1-GCC-8.2.0-2.31.1
 module load Miniconda3/4.7.10
 ```
 
-Además requiere de la creación y activación de un entorno virtual para ejecutar **cutadapt**:
+Además requiere de la creación y activación de un entorno virtual para ejecutar **cutadapt** y **TransDecoder**:
 
 ```bash
 conda create -n AndreaConda python=3.7 anaconda
 source activate AndreaConda
 conda install -c bioconda cutadapt
+# conda install -c bioconda transdecoder
 ```
 
 ## 2. CANDIDATOS DE SECUENCIAS DE *PLECTOSPHAERELLA* COMO MIMÉTICAS DE DOS FAMILIAS DE PÉPTIDOS FITOREGULADORES DE *ARABIDOPSIS*
