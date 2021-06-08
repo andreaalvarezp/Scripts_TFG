@@ -107,7 +107,7 @@ En cada uno de los archivos con el nombre del argumento deben estar alojadas la/
 module load BLAST+/2.9.0-gompi-2019a
 ```
 
-## 3.2. *SSP_heatmaps.R*
+### 2.2. *SSP_heatmaps.R*
 
 Módulo utilizado para la obtención de mapas de calor de expresión de genes de *Plectosphaerella* interesantes en la identificación de miméticos de péptidos SSP. Es el único de los scripts que se ha programado con R, haciendo uso de diversas librerías:
 
@@ -124,9 +124,9 @@ Cada una de estas librerías se utilizó con un uso concreto:
 - ``ComplexHeatMap`` permitió la representación de los mapas de calor. Se hizo uso de múltiples de sus opciones y parámetros, comentados en el código.
 - ``RColorBrewer`` permitió crear un código de color para cada cluster.
 
-### 3. BÚSQUEDA Y DETERMINACIÓN DE FAMILIAS DE CAZymas EN *PLECTOSPHAERELLA*
+## 3. BÚSQUEDA Y DETERMINACIÓN DE FAMILIAS DE CAZymas EN *PLECTOSPHAERELLA*
 
-## 3.1. *CAZymas.sh*
+### 3.1. *CAZymas.sh*
 
 Este módulo ejecuta múltiples tareas:
 1. Eejecuta dbCAN2 para la determinación de genes ue codifican para CAZymas en los proteomas y genomas de *Plectosphaerella*.
