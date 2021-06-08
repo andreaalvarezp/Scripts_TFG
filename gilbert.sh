@@ -30,10 +30,12 @@ module load BBMap/38.87-GCC-8.2.0-2.31.1
 module load Bowtie2/2.3.5.1-GCC-8.2.0-2.31.1
 module load Trinity/2.11.0-foss-2019a-Python-3.7.2
 module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
+module load HMMER/3.2.1-GCC-8.2.0-2.31.1
 module load Miniconda3/4.7.10
 conda create -n AndreaConda python=3.7 anaconda
 source activate AndreaConda
 conda install -c bioconda cutadapt
+conda install -c bioconda transdecoder
 
 echo "Artículo Gilbert pipeline: $1"
 echo "Posibles argumentos: invitro, minusP, plusP"
@@ -79,3 +81,42 @@ bowtie2 -x $bowtie2/genome/Ct_bt2base -1 $BB/$1_temp1.fq.gz -2 $BB/$1_temp2.fq.g
 echo "Sample $1: ensamblaje de novo con Trinity"
 
 Trinity --seqType fq --max_memory 200G --CPU 40 --left $bowtie2/$1_align.fq.1.gz --right $bowtie2/$1_align.fq.2.gz --output $ct/trinity_out2 --full_cleanup --verbose
+
+# 6. IDENTIFICACIÓN DE REGIONES CODIFICANTES CON TRANSDECODER
+
+# Para la instalación de TransDecoder es necesario hacer uso del entorno virtual
+
+TransDecoder.LongOrfs -t trinity_out2.Trinity.fasta
+
+# 7. IDENTIFICACIÓN DE SECUENCIAS CON SIMILITUD LIMITADA A DOMINIOS DE PROTEÍNAS VIRALES CON HMMER
+
+# 7.1. Descarga de la base de datos de Pfam
+
+wget -O $ct/db/Pfam-A.hmm.gz "ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz"
+
+# 7.2. Busco los perfiles HMM que me interesan: "RdRP_1, RdRP_2, RdRP_3, RdRP_4, RdRP_5, Mitovir_RNA_pol"
+
+hmmfetch $ct/db/Pfam-A.hmm.gz $1 > $1.hmms
+
+# Junto todos los archivos en uno solo
+
+cat RdRP_*.hmms Mitovir_RNA_pol.hmms > RdRP.hmm
+
+# 7.3. Creo la base de datos con hmmpress
+
+hmmpress RdRP.hmm
+
+# 7.4. Busco las proteínas con hmmscan
+
+hmmscan RdRP.hmm $ct/trinity_out2.Trinity.fasta.transdecoder_dir/longest_orfs.pep > $ct/hmmer/hmmer_results
+
+# 8. COMPROBACIÓN DE LOS RESULTADOS CON BLAST
+# 8.1. Creo un archivo oneline de los ensamblajes de Trandecoder y creo una lista manual con los identificadores de los hit de HMMER
+# Con ese resultado obtengo el archivo FASTA con las proteínas que han dado hit
+
+awk '{if($0 ~ /^>/){print $0} else {printf $0}}' $ct/transdecoder/longest_orfs.pep | perl -pe "s/>/\n>/g" > $ct/transdecoder/longest_orfs_oneline.fasta
+grep -A1 --no-group-separator -f $ct/hmmer/list1.txt $ct/transdecoder/longest_orfs_oneline.fasta > $ct/hmmer/hmmer-results.fasta
+
+# 9. COMPROBACIÓN DE RESULTADOS: BLAST CONTRA NCBI nr
+
+diamond blastp -d $db/NEWNR/nr -q $ct/hmmer/hmmer-hits.fasta -o $ct/hmmer-NCBI.blast -f 0 -k 1 -e 0.001 --unal 0 --more-sensitive
