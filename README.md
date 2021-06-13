@@ -4,6 +4,8 @@
 
 **Autor: Andrea Álvarez Pérez**
 
+**Tutores: Soledad Sacristán Benayas, Julio Luis Rodríguez Romero**
+
 **Curso 2020-2021**
 
 Este Github recoge los scripts bioinformáticos utilizados para la realización del **Trabajo de Fin de Grado de Biotecnología** de la alumna Andrea Álvarez Pérez. Cada uno de ellos está destinado a una tarea concreta y todos los scripts, tanto en R como en bash, están comentados con la función y el objetivo de cada una de las órdenes y módulos ejecutados.
