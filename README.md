@@ -37,7 +37,7 @@ module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
 
 El esquema del procesado seguido se muestra en el link:
 
-![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png "Esquema procesado búsqueda de micovirus en Plectosphaerella")
+![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png)
 
 
 ### 1.2. *ct.sh*
@@ -57,7 +57,7 @@ Los módulos utilizados fueron los mismos que con *Plectosphaerella*.
 
 El esquema del procesado seguido se muestra en el link:
 
-![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png "Esquema procesado búsqueda de micovirus en Colletotrichum tofieldiae")
+![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png)
 
 
 ### 1.3. *gilbert.sh*
@@ -99,12 +99,12 @@ El esquema del procesado seguido se muestra en el link:
 
 ## 2. CANDIDATOS DE SECUENCIAS DE *PLECTOSPHAERELLA* COMO MIMÉTICAS DE DOS FAMILIAS DE PÉPTIDOS FITOREGULADORES DE *ARABIDOPSIS*
 
-### 2.1. *scoop.sh*
+### 2.1. *ssp.sh*
 
 Este módulo se utilizó para la búsqueda de motivos SCOOP y SSP en el proteoma de *Plectosphaerella*. Uso:
 
 ```bash
-$ sbatch scoop.sh $1
+$ sbatch ssp.sh $1
 ```
 
 siendo ``$1`` la secuencia que se quiere utilizar como *query* para buscar en los proteomas del hongo. Posibles argumentos:
@@ -114,12 +114,18 @@ siendo ``$1`` la secuencia que se quiere utilizar como *query* para buscar en lo
 - verticilium
 - magnaporthe
 - proscoop
+- SSP1 hasta SSP14
 
 En cada uno de los archivos con el nombre del argumento deben estar alojadas la/s secuencia/s correspondientes a cada categoría. El script aplica un BLAST-P para su búsqueda y luego obtiene a partir de los resultados el archivo FASTA correspondiente que será utilizado como entrada en MEME. El módulos utilizado es:
 
 ```bash
 module load BLAST+/2.9.0-gompi-2019a
 ```
+
+El esquema del procesado seguido se muestra en el link:
+
+![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_ssp.png)
+
 
 ### 2.2. *SSP_heatmaps.R*
 
@@ -186,3 +192,9 @@ module load IQ-TREE/1.6.12-foss-2019a
 ```
 
 Este script da como resultado seis archivos, uno por cada grupo de CAZymas, con su correpondiente FASTA, alineamiento y archivo *.tree* con el árbol que será posteriomente representado con iTOL.
+
+El esquema del procesado seguido se muestra en el link:
+
+![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_CAZymas.png)
+
+
