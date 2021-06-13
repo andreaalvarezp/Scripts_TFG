@@ -35,7 +35,7 @@ module load Trinity/2.11.0-foss-2019a-Python-3.7.2
 module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
 ```
 
-![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png)
+![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png?raw = true)
 
 
 ### 1.2. *ct.sh*
