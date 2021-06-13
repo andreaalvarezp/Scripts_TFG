@@ -35,6 +35,9 @@ module load Trinity/2.11.0-foss-2019a-Python-3.7.2
 module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
 ```
 
+
+
+
 ### 1.2. *ct.sh*
 
 Este módulo es idéntico al anterior, pero posee las variables redefinidas para utilizarlas con datos del hongo *Colletotrichum tofieldiae*. Sirve para la búsqueda e identificación de micovirus en datos de RNAseq. Uso:
