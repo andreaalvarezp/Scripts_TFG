@@ -35,7 +35,9 @@ module load Trinity/2.11.0-foss-2019a-Python-3.7.2
 module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
 ```
 
-![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png?raw = true)
+El esquema del procesado seguido se muestra en el link:
+
+![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png)
 
 
 ### 1.2. *ct.sh*
@@ -52,6 +54,11 @@ siendo ``$1`` las condiciones de las muestras de *Colletotrichum tofieldiae*. Po
 - minusP
 
 Los módulos utilizados fueron los mismos que con *Plectosphaerella*.
+
+El esquema del procesado seguido se muestra en el link:
+
+![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png)
+
 
 ### 1.3. *gilbert.sh*
 
@@ -85,6 +92,10 @@ source activate AndreaConda
 conda install -c bioconda cutadapt
 # conda install -c bioconda transdecoder
 ```
+
+El esquema del procesado seguido se muestra en el link:
+
+![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_CT.png)
 
 ## 2. CANDIDATOS DE SECUENCIAS DE *PLECTOSPHAERELLA* COMO MIMÉTICAS DE DOS FAMILIAS DE PÉPTIDOS FITOREGULADORES DE *ARABIDOPSIS*
 
