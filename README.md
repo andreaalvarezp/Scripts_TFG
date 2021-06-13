@@ -37,7 +37,7 @@ module load DIAMOND/0.9.24-GCC-8.2.0-2.31.1
 
 El esquema del procesado seguido se muestra en el link:
 
-![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png)
+![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png "Esquema procesado búsqueda de micovirus en Plectosphaerella")
 
 
 ### 1.2. *ct.sh*
@@ -57,7 +57,7 @@ Los módulos utilizados fueron los mismos que con *Plectosphaerella*.
 
 El esquema del procesado seguido se muestra en el link:
 
-![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png)
+![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png "Esquema procesado búsqueda de micovirus en Colletotrichum tofieldiae")
 
 
 ### 1.3. *gilbert.sh*
