@@ -88,6 +88,15 @@ El esquema del procesado seguido se muestra en el link:
 
 ![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png)
 
+A continuación se realiza una breve descripción de las utilidades que le damos a algunos de estos módulos:
+
+#### Bowtie2
+
+
+#### HMMER
+
+
+
 
 ### 1.3. *gilbert.sh*
 
