@@ -48,8 +48,11 @@ A continuación se realiza una breve descripción de las utilidades que le damos
 Herramienta bioinformática multiproceso de la que vamos a ejecutar diversos módulos:
 
 **1) Sendsketch** hace un boceto de mi ensamblaje, que se limitó a los primeros 200.000 reads. Compara los croquis de consulta creados a partir de los archivos FASTQ de entrada con los croquis de referencia alojados en un servidor remoto a través de Internet.
+
 **2) Clumpify** es el módulo encargado de agrupar rápidamente las lecturas superpuestas en grupos. Se utiliza como una forma de aumentar la compresión de archivos y para acelerar el ensamblaje.
+
 **3)	BBDuk** se utiliza para retirar adaptadores de las secuencias de Illumina; artefacts, que son repeticiones de aminoácidos o secuencias que no son necesarias; secuencias cortas y ribosómicas. 
+
 **4)	BBNorm** está diseñado como herramienta de normalización de la cobertura mediante el muestreo descendente de las lecturas para dar una distribución de cobertura plana. Se busca minimizar el ruido técnico introducido en los datos durante el proceso de secuenciación con el fin de volverlos comparables entre sí, lo que acelera y mejora la calidad del ensamblaje posterior.
 
 #### Trinity (Grabherr, M.G., *et al,* 2011)
