@@ -41,6 +41,30 @@ El esquema del procesado seguido se muestra en el link:
 
 ![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png)
 
+A continuación se realiza una breve descripción de las utilidades que le damos a cada uno de los módulos:
+
+#### BBTools (Bushnell, B., *et al,* 2017)
+
+Herramienta bioinformática multiproceso de la que vamos a ejecutar diversos módulos:
+
+**1) Sendsketch** hace un boceto de mi ensamblaje, que se limitó a los primeros 200.000 reads. Compara los croquis de consulta creados a partir de los archivos FASTQ de entrada con los croquis de referencia alojados en un servidor remoto a través de Internet.
+**2) Clumpify** es el módulo encargado de agrupar rápidamente las lecturas superpuestas en grupos. Se utiliza como una forma de aumentar la compresión de archivos y para acelerar el ensamblaje.
+**3)	BBDuk** se utiliza para retirar adaptadores de las secuencias de Illumina; artefacts, que son repeticiones de aminoácidos o secuencias que no son necesarias; secuencias cortas y ribosómicas. 
+**4)	BBNorm** está diseñado como herramienta de normalización de la cobertura mediante el muestreo descendente de las lecturas para dar una distribución de cobertura plana. Se busca minimizar el ruido técnico introducido en los datos durante el proceso de secuenciación con el fin de volverlos comparables entre sí, lo que acelera y mejora la calidad del ensamblaje posterior.
+
+#### Trinity (Grabherr, M.G., *et al,* 2011)
+
+Trinity es un software que combina tres módulos independientes que se ejecutan de manera secuencial para procesar grandes volúmenes de lecturas de RNAseq.
+
+Primero reconstruye los contigs a partir del set de lecturas, agrupa los superpuestos y los conectan para construir gráficos de Bruijin para cada componente. Un gráfico de Bruijin está definido por nodos donde cada uno de ellos representa una secuencia de una longitud fija de k nucleótidos (k-mer), donde k es considerablemente más corto que la longitud de la lectura (Grabherr, M.G., et al 2011), y permiten enumerar todas las posibles soluciones por las se pueden reconstruir secuencias lineales, por lo que cada ruta en el gráfico representa una posible transcripción. Por último, reconstruye los transcritos lineales resolviendo los gráficos de Bruijin individuales con las lecturas originales y puntúa las rutas basándose en procesos de programación dinámica.
+
+#### DIAMOND (Buchfink, B., *et al,* 2015)
+
+DIAMOND es un software alineamiento de secuencias para búsquedas de proteínas y DNA traducido, diseñado para el análisis de alto rendimiento de datos de grandes secuencias. Es un programa de código abierto cuatro veces más rápido que BLAST-X en la comparación de lecturas cortas de DNA con la base de datos NCBI nr (non-redundant) manteniendo un nivel comparable de sensibilidad en alineaciones con un valor E (evalue) < 10-3.
+
+#### CAP3 - Contig Assembly Program (Huang, X., 1999)
+
+Programa utilizado para el reensamblaje de contigs. Se trata de una herramienta que utiliza un filtro para eliminar pares de fragmentos que posiblemente no podrían superponerse y seguidamente aplica un algoritmo de programación dinámica para calcular la alineación superpuesta de puntuación máxima entre cada par restante de fragmentos. Luego los ensambla en orden de puntuación de alineación.
 
 ### 1.2. *ct.sh*
 
