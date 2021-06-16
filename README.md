@@ -88,16 +88,6 @@ El esquema del procesado seguido se muestra en el link:
 
 ![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_Plec.png)
 
-A continuación se realiza una breve descripción de las utilidades que le damos a algunos de estos módulos:
-
-#### Bowtie2
-
-
-#### HMMER
-
-
-
-
 ### 1.3. *gilbert.sh*
 
 Este módulo aplica el procesa bioinformático llevado a cabo por Gilbert, K., *et al*, 2019. Se aplica para comprobar la eficiencia del procesado llevado a cabo anteriormente y comparar los resultados obtenidos. Uso:
@@ -134,6 +124,16 @@ conda install -c bioconda cutadapt
 El esquema del procesado seguido se muestra en el link:
 
 ![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_CT.png)
+
+A continuación se realiza una breve descripción de las utilidades que le damos a algunos de estos módulos:
+
+#### Bowtie2 (Langmead, B., *et al,* 2012)
+
+El módulo **Bowtie2-build** construye un índice Bowtie a partir de un conjunto de secuencias de DNA. Genera un conjunto de 6 archivos con los sufijos.1.bt2,.2.bt2, .3.bt2, .4.bt2, .rev.1.bt2 y .rev.2.bt2. que constituyen el índice. Son todo lo que se necesita para alinear las lecturas con esa referencia. Una vez creado el índice, Bowtie 2 ya no utiliza los archivos de secuencia original FASTA.
+
+#### HMMER (Johnson, L. S. *et al,* 2010)
+
+Herramienta que implementa métodos que utilizan modelos probabilísticos llamados modelos de perfil oculto de Markov (perfil HMM). Está diseñado para detectar homólogos remotos con la mayor sensibilidad posible, basándose en la solidez de sus modelos de probabilidad subyacentes, y es esencialmente tan rápido como BLAST.
 
 ## 2. CANDIDATOS DE SECUENCIAS DE *PLECTOSPHAERELLA* COMO MIMÉTICAS DE DOS FAMILIAS DE PÉPTIDOS FITOREGULADORES DE *ARABIDOPSIS*
 
