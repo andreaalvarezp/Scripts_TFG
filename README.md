@@ -164,6 +164,19 @@ El esquema del procesado seguido se muestra en el link:
 
 ![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_ssp.png)
 
+A continuación se realiza una breve descripción de las utilidades que le damos a algunos de estos módulos:
+
+#### BLAST+ (Basic Local Alignment Search Tool, Camacho, C., *et al,* 2009)
+
+Se trata de una herramienta que encuentra regiones de similitud local entre secuencias comparando una consulta de proteínas con una base de datos de proteínas.
+
+#### MEME - Multiple Em for Motif Elicitation versión 5.3.3 (Bailey, T. L, *et al,* 2009)
+
+Servidor web que proporciona un portal unificado para el descubrimiento y análisis en línea de motivos de secuencia que representan características tales como sitios de unión de ADN y dominios de interacción de proteínas. 
+
+#### ESPript3 (Robert, X., *et al,* 2014)
+
+Servidor web para extraer y presentar un análisis completo de la información de la estructura de la proteína primaria a cuaternaria de forma automatizada.
 
 ### 2.2. *SSP_heatmaps.R*
 
@@ -182,12 +195,14 @@ Cada una de estas librerías se utilizó con un uso concreto:
 - ``ComplexHeatMap`` permitió la representación de los mapas de calor. Se hizo uso de múltiples de sus opciones y parámetros, comentados en el código.
 - ``RColorBrewer`` permitió crear un código de color para cada cluster.
 
+El paquete ``ComplexHeatMap`` proporciona numerosas funcionalidades para personalizar mapas de calor e incluir gráficos de anotaciones definidas por el usuario. La función ``scale()`` implementada en las matrices de datos de FPKM y expresión relativa permite que, si existen datos extremos, el efecto de aquellos datos no tan altos pero igualmente significativos no se verá diluido en la representación. 
+
 ## 3. BÚSQUEDA Y DETERMINACIÓN DE FAMILIAS DE CAZymas EN *PLECTOSPHAERELLA*
 
 ### 3.1. *CAZymas.sh*
 
 Este módulo ejecuta múltiples tareas:
-1. Eejecuta dbCAN2 para la determinación de genes ue codifican para CAZymas en los proteomas y genomas de *Plectosphaerella*.
+1. Ejecuta dbCAN2 para la determinación de genes que codifican para CAZymas en los proteomas y genomas de *Plectosphaerella*.
 3. Divide los resultados según la familia o grupo al que pertenecen (AA, CE, CBM, GH, GT, PL).
 4. Prepara el archivo FASTA correspondiente para su posterior ejecución en SECRETOOL.
 5. Alinea las secuencias de las tres cepas del hongo que pertenecen a una familia con ClustalOmega.
@@ -235,4 +250,24 @@ El esquema del procesado seguido se muestra en el link:
 
 ![ScreenShot](https://github.com/andreaalvarezp/Scripts_TFG/tree/main/Pipelines/pipeline_CAZymas.png)
 
+A continuación se realiza una breve descripción de las utilidades que le damos a algunos de estos módulos:
 
+#### CUPP (Barret, K., *et al,* 2020)
+
+Herramienta de anotación funcional y agrupación no basada en alineamientos que utiliza patrones de péptidos únicos conservados para realizar agrupaciones automatizadas de proteínas y formar grupos. Es lo que se denomina una *k-mer-based tool*, donde los k-mer distintivos representan los motivos característicos de cada subfamilia y, por lo tanto, se usan para anotar nuevos genomas para CAZymas.
+
+#### dbCAN2 (Zhang, H., *et al,* 2018)
+
+Servidor web creado en 2012 para proporcionar un servicio público para la anotación CAZymas automatizada para genomas recién secuenciados para lo cual utiliza tres herramientas:
+
+- **HMMER:** herramienta que implementa métodos que utilizan modelos probabilísticos llamados modelos de perfil oculto de Markov (perfil HMM).
+- **DIAMOND BLAST**: herramienta de alineamiento.
+- **Hotpep**: anota CAZymas mediante la búsqueda contra la biblioteca PPR (*Peptide Pattern Recognition*) de motivos peptídicos cortos conservados presente en diferentes familias CAZymas. En la biblioteca de PPR, cada familia de CAZymas tiene un conjunto de péptidos de 6-mer conservados, y Hotpep escanea nuevas proteínas para la presencia de estos péptidos con el fin de asignar las proteínas de consulta en familias CAZymas existentes.
+
+#### SECRETOOL (Cortázar, A. R., *et al,* 2013)
+
+Servidor web que comprende un grupo de módulos que permiten hacer predicciones de secretomas a partir de archivos de secuencias de aminoácidos. Para ello, en primer lugar, realiza un procesamiento de los datos con TargetP, SignalP y PredGPI y mezcla en un solo archivo las proteínas predichas por estos tres métodos. Seguidamente realiza una evaluación con TMHMM, método basado en cadenas de Markov. Los candidatos del paso anterior se guardan como entrada para WoLFSORT, donde las secuencias etiquetadas como “extracelulares” se retienen. Como salida se tiene una lista de IDs con las proteínas secretadas y un archivo con las secuencias relativas a esos IDs en formato FASTA. Opcionalmente, también permite predecir ortólogos y determinar dominios. 
+
+#### IQ-TREE (Minh, B., *et al,* 2020)
+
+Paquete de software de código abierto y ampliamente utilizado para la inferencia filogenética que utiliza el criterio de máxima verosimilitud (ML). 
