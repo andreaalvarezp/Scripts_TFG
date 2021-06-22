@@ -43,7 +43,7 @@ El esquema del procesado seguido se muestra en el link:
 
 A continuación se realiza una breve descripción de las utilidades que le damos a cada uno de los módulos:
 
-#### BBTools (Bushnell, B., *et al,* 2017)
+#### _BBTools (Bushnell, B., *et al,* 2017)_
 
 Herramienta bioinformática multiproceso de la que vamos a ejecutar diversos módulos:
 
