@@ -127,11 +127,11 @@ El esquema del procesado seguido se muestra en el link:
 
 A continuación se realiza una breve descripción de las utilidades que le damos a algunos de estos módulos:
 
-#### Bowtie2 (Langmead, B., *et al,* 2012)
+#### Bowtie2 (Langmead, B., *et al,* 2012) [27]
 
 El módulo **Bowtie2-build** construye un índice Bowtie a partir de un conjunto de secuencias de DNA. Genera un conjunto de 6 archivos con los sufijos.1.bt2,.2.bt2, .3.bt2, .4.bt2, .rev.1.bt2 y .rev.2.bt2. que constituyen el índice. Son todo lo que se necesita para alinear las lecturas con esa referencia. Una vez creado el índice, Bowtie 2 ya no utiliza los archivos de secuencia original FASTA.
 
-#### HMMER (Johnson, L. S. *et al,* 2010)
+#### HMMER (Johnson, L. S. *et al,* 2010) [28]
 
 Herramienta que implementa métodos que utilizan modelos probabilísticos llamados modelos de perfil oculto de Markov (perfil HMM). Está diseñado para detectar homólogos remotos con la mayor sensibilidad posible, basándose en la solidez de sus modelos de probabilidad subyacentes, y es esencialmente tan rápido como BLAST.
 
@@ -166,15 +166,15 @@ El esquema del procesado seguido se muestra en el link:
 
 A continuación se realiza una breve descripción de las utilidades que le damos a algunos de estos módulos:
 
-#### BLAST+ (Basic Local Alignment Search Tool, Camacho, C., *et al,* 2009)
+#### BLAST+ (Basic Local Alignment Search Tool, Camacho, C., *et al,* 2009) [30]
 
 Se trata de una herramienta que encuentra regiones de similitud local entre secuencias comparando una consulta de proteínas con una base de datos de proteínas.
 
-#### MEME - Multiple Em for Motif Elicitation versión 5.3.3 (Bailey, T. L, *et al,* 2009)
+#### MEME - Multiple Em for Motif Elicitation versión 5.3.3 (Bailey, T. L, *et al,* 2009) [31]
 
 Servidor web que proporciona un portal unificado para el descubrimiento y análisis en línea de motivos de secuencia que representan características tales como sitios de unión de ADN y dominios de interacción de proteínas. 
 
-#### ESPript3 (Robert, X., *et al,* 2014)
+#### ESPript3 (Robert, X., *et al,* 2014) [33]
 
 Servidor web para extraer y presentar un análisis completo de la información de la estructura de la proteína primaria a cuaternaria de forma automatizada.
 
@@ -252,11 +252,11 @@ El esquema del procesado seguido se muestra en el link:
 
 A continuación se realiza una breve descripción de las utilidades que le damos a algunos de estos módulos:
 
-#### CUPP (Barret, K., *et al,* 2020)
+#### CUPP (Barret, K., *et al,* 2020) [19]
 
 Herramienta de anotación funcional y agrupación no basada en alineamientos que utiliza patrones de péptidos únicos conservados para realizar agrupaciones automatizadas de proteínas y formar grupos. Es lo que se denomina una *k-mer-based tool*, donde los k-mer distintivos representan los motivos característicos de cada subfamilia y, por lo tanto, se usan para anotar nuevos genomas para CAZymas.
 
-#### dbCAN2 (Zhang, H., *et al,* 2018)
+#### dbCAN2 (Zhang, H., *et al,* 2018) [36]
 
 Servidor web creado en 2012 para proporcionar un servicio público para la anotación CAZymas automatizada para genomas recién secuenciados para lo cual utiliza tres herramientas:
 
@@ -264,10 +264,10 @@ Servidor web creado en 2012 para proporcionar un servicio público para la anota
 - **DIAMOND BLAST**: herramienta de alineamiento.
 - **Hotpep**: anota CAZymas mediante la búsqueda contra la biblioteca PPR (*Peptide Pattern Recognition*) de motivos peptídicos cortos conservados presente en diferentes familias CAZymas. En la biblioteca de PPR, cada familia de CAZymas tiene un conjunto de péptidos de 6-mer conservados, y Hotpep escanea nuevas proteínas para la presencia de estos péptidos con el fin de asignar las proteínas de consulta en familias CAZymas existentes.
 
-#### SECRETOOL (Cortázar, A. R., *et al,* 2013)
+#### SECRETOOL (Cortázar, A. R., *et al,* 2013) [37]
 
 Servidor web que comprende un grupo de módulos que permiten hacer predicciones de secretomas a partir de archivos de secuencias de aminoácidos. Para ello, en primer lugar, realiza un procesamiento de los datos con TargetP, SignalP y PredGPI y mezcla en un solo archivo las proteínas predichas por estos tres métodos. Seguidamente realiza una evaluación con TMHMM, método basado en cadenas de Markov. Los candidatos del paso anterior se guardan como entrada para WoLFSORT, donde las secuencias etiquetadas como “extracelulares” se retienen. Como salida se tiene una lista de IDs con las proteínas secretadas y un archivo con las secuencias relativas a esos IDs en formato FASTA. Opcionalmente, también permite predecir ortólogos y determinar dominios. 
 
-#### IQ-TREE (Minh, B., *et al,* 2020)
+#### IQ-TREE (Minh, B., *et al,* 2020) [38]
 
 Paquete de software de código abierto y ampliamente utilizado para la inferencia filogenética que utiliza el criterio de máxima verosimilitud (ML). 
